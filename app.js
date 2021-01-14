@@ -58,4 +58,4 @@ function updateId() {
     var dropdownMenu = d3.select("#selDataset");
     // Assign the value of the dropdown menu option to a variable
     var dataset = dropdownMenu.node().value;
-});
+  
