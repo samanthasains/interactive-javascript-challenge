@@ -1,25 +1,3 @@
-// Initialize the page with default
-function init() {
-
-    // read in samples.json
-    d3.json("samples.json").then((data) => {
-        console.log(data);
-
-        // write subject ids to array
-        var subjectNo = data.names;
-        console.log(subjectNo);
-
-        // var sample_values = samples.sample_values.slice(0,10).reverse();
-        // console.log(sample_values);
-
-        // var otu_ids=samples.otu_ids;
-        // // console.log(otu_ids);
-
-        // var otu_labels = samples.otu_labels;
-        // console.log(otu_labels);
-    });
-    };
-
     // This function is called when a dropdown menu item is selected
     function updateId() {
         // Use D3 to select the dropdown menu
@@ -27,14 +5,44 @@ function init() {
 
         // read in samples.json
         d3.json("samples.json").then((data) => {
-            console.log(data);
+            // console.log(data);
 
-            // Write ids to menu bar
+            // Write ids to dropdown
             data.names.forEach(function (name) {
                 dropdownMenu.append("option").text(name).property("value", name);
             });
         });
     };
+
+    // Update sample when new id is selected
+    function optionChanged(newId){
+        getData(newId);
+        // newCharts(newId);
+    }
+
+// Pull data for selected ID
+function getData(newId) {
+
+    // read in samples.json
+    d3.json("samples.json").then((data) => {
+        console.log(data);
+
+        // filter array by id
+        var sampleId = data.samples.filter(a => a.newId === newId)[0];
+        console.log(sampleId);
+
+        var sample_values = sampleId.sample_values.slice(0,10).reverse();
+        console.log(sample_values);
+
+        var otu_ids=sampleId.otu_ids.slice(0,10).reverse();
+        console.log(otu_ids);
+
+        var otu_labels = sampleId.otu_labels.slice(0,10).reverse();
+        console.log(otu_labels);
+    });
+    };
+
+
             // Assign the value of the dropdown menu option to a variable
             // var dataset = dropdownMenu.property();
 
@@ -98,5 +106,5 @@ function init() {
             //   Plotly.newPlot('bubble', data, layout);
 
         // });
-        init();
+        getData();
         updateId();
