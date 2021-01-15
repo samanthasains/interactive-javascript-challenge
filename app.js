@@ -20,8 +20,8 @@ d3.json("data/samples.json").then((data)=>{
 
 // // create trace for bar chart  data
 // var trace1 = {
-//     x: sample_values
-//     y: otu_ids
+//     x: sample_values,
+//     y: otu_ids,
 //     type: 'bar',
 //     orientation: 'h',
 //     text: otu_labels,
@@ -51,6 +51,29 @@ d3.json("data/samples.json").then((data)=>{
   
 //   // plot chart to 'bar' with data and layout information
 //   Plotly.newPlot('bar', data, layout);
+
+// Bubble chart
+
+// var trace1= {
+//     x: out_ids,
+//     y: sample_values,
+//     mode: 'markers',
+//     marker: {
+//       size: sample_values,
+//       color: otu_ids
+//     },
+//     text: otu_labels
+//   };
+  
+//   var data = [trace1];
+  
+//   var layout = {
+//     showlegend: false,
+//     height: 600,
+//     width: 600
+//   };
+  
+//   Plotly.newPlot('bubble', data, layout);
 
 // This function is called when a dropdown menu item is selected
 function updateId() {
