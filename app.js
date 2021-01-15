@@ -1,3 +1,6 @@
+// Initialize the page with default
+function init() {
+
 // read in samples.json
 d3.json("data/samples.json").then((data)=>{
     console.log(data);
@@ -15,6 +18,13 @@ d3.json("data/samples.json").then((data)=>{
     console.log(otu_labels);
 
 });
+
+// This function is called when a dropdown menu item is selected
+function updateId() {
+    // Use D3 to select the dropdown menu
+    var dropdownMenu = d3.select("#selDataset");
+    // Assign the value of the dropdown menu option to a variable
+    var dataset = dropdownMenu.property().value;
 
 // Bar chart
 
@@ -74,11 +84,5 @@ d3.json("data/samples.json").then((data)=>{
 //   };
   
 //   Plotly.newPlot('bubble', data, layout);
-
-// This function is called when a dropdown menu item is selected
-function updateId() {
-    // Use D3 to select the dropdown menu
-    var dropdownMenu = d3.select("#selDataset");
-    // Assign the value of the dropdown menu option to a variable
-    var dataset = dropdownMenu.node().value;
   
+};
