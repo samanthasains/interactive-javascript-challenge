@@ -4,8 +4,6 @@ function displayData(newId) {
   // read in samples.json
   d3.json("samples.json").then((data) => {
 
-
-
     // filter array by id
     var sampleId = data.samples.filter(s => s.id.toString() === newId)[0];
     // console.log(sampleId);
@@ -76,7 +74,6 @@ function displayData(newId) {
     // plot chart to 'bubble' with data and layout information
     Plotly.newPlot('bubble', data, layout);
 
-
   });
 
 };
@@ -89,11 +86,9 @@ function updateDemographic(newId) {
 
   // select metadata from json
   var metadata = data.metadata;
-  console.log("metadata running");
 
   // filter metadata by id
-  var demographicId = metadata.filter(s => s.id.toString() === newId);
-  // console.log(demographicId);
+  var demographicId = metadata.filter(s => s.id.toString() === newId)[0];
 
   // Use D3 to select the metadata
   var demographicInfo = d3.select("#sample-metadata");
@@ -104,6 +99,7 @@ function updateDemographic(newId) {
   // Write metadata to table
   Object.entries(demographicId).forEach((value) => {
     demographicInfo.append("h5").text(value[0] + ":" + value[1] + "\n");
+    console.log(value[0] + ":" + value[1] + "\n")
   });
   });
 };
@@ -127,14 +123,9 @@ function init() {
       dropdownMenu.append("option").text(name).property("value");
     });
 
-    // call function to display data & plots
-    // var selection = JSON.parse(data.names[0]);
-    // console.log(selection.type)
-    // console.log("#1")
     displayData(data.names[0])
+    updateDemographic(data.names[0])
   });
 }
 
 init();
-// display default plot
-// displayData();
