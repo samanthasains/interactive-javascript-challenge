@@ -33,7 +33,7 @@ function getData(newId) {
         var sample_values = sampleId.sample_values.slice(0,10).reverse();
         console.log(sample_values);
 
-        var otu_ids=sampleId.otu_ids.slice(0,10).reverse();
+        var otu_ids = sampleId.otu_ids.slice(0,10).reverse();
         console.log(otu_ids);
 
         var otu_labels = sampleId.otu_labels.slice(0,10).reverse();
@@ -66,32 +66,32 @@ function getData(newId) {
 
       // plot chart to 'bar' with data and layout information
       Plotly.newPlot('bar', data, layout);
-    
+
+    // create trace for Bubble chart
+
+    var trace1= {
+        x: otu_ids,
+        y: sample_values,
+        mode: 'markers',
+        marker: {
+          size: sample_values,
+          color: otu_ids
+        },
+        text: otu_ids
+      };
+
+      var data = [trace1];
+
+      var layout = {
+        showlegend: false,
+        height: 600,
+        width: 1200
+      };
+
+      Plotly.newPlot('bubble', data, layout);
+
     });
 };
-
-            // Bubble chart
-
-            // var trace1= {
-            //     x: out_ids,
-            //     y: sample_values,
-            //     mode: 'markers',
-            //     marker: {
-            //       size: sample_values,
-            //       color: otu_ids
-            //     },
-            //     text: otu_labels
-            //   };
-
-            //   var data = [trace1];
-
-            //   var layout = {
-            //     showlegend: false,
-            //     height: 600,
-            //     width: 600
-            //   };
-
-            //   Plotly.newPlot('bubble', data, layout);
 
         // });
         getData();
