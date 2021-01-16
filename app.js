@@ -6,19 +6,15 @@ function displayData(newId) {
 
     // filter array by id
     var sampleId = data.samples.filter(s => s.id.toString() === newId)[0];
-    // console.log(sampleId);
 
     // filter & sort samples values
     var sample_values = sampleId.sample_values.slice(0, 10).reverse();
-    // console.log(sample_values);
 
     // filter & sort otu ids
     var otu_ids = sampleId.otu_ids.slice(0, 10).reverse();
-    // console.log(otu_ids);
 
     // filter & sort otu labels
     var otu_labels = sampleId.otu_labels.slice(0, 10).reverse();
-    // console.log(otu_labels);
 
     // add string to otu ids for display in bar chart
     var otu_ids_edited = []
