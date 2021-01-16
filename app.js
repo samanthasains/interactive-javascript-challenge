@@ -17,7 +17,6 @@
     // Update sample when new id is selected
     function optionChanged(newId){
         getData(newId);
-        // newCharts(newId);
     }
 
 // Pull data for selected ID
@@ -39,48 +38,37 @@ function getData(newId) {
 
         var otu_labels = sampleId.otu_labels.slice(0,10).reverse();
         console.log(otu_labels);
+
+        var otu_ids_edited = []
+        otu_ids.forEach(function(id){
+            otu_ids_edited.push(`OTU ID: ${id}`)
+        })
+
+    // create trace for bar chart  data
+    var trace1 = {
+        x: sample_values,
+        y: otu_ids_edited,
+        type: 'bar',
+        orientation: 'h',
+        text: otu_labels
+      };
+
+      // write trace to data variable
+      var data = [trace1];
+
+      // write layout variable
+      var layout = {
+        showlegend: false,
+        yaxis:{
+            automargin:true
+        }
+      };
+
+      // plot chart to 'bar' with data and layout information
+      Plotly.newPlot('bar', data, layout);
+    
     });
-    };
-
-
-            // Assign the value of the dropdown menu option to a variable
-            // var dataset = dropdownMenu.property();
-
-            // Bar chart
-
-            // // create trace for bar chart  data
-            // var trace1 = {
-            //     x: sample_values,
-            //     y: otu_ids,
-            //     type: 'bar',
-            //     orientation: 'h',
-            //     text: otu_labels,
-            //     marker: {
-            //       color: 'blue'
-            //     }
-            //   };
-
-            //   // write trace to data variable
-            //   var data = [trace1];
-
-            //   // write layout variable
-            //   var layout = {
-            //     font:{
-            //       family: 'Raleway, sans-serif'
-            //     },
-            //     showlegend: false,
-            //     xaxis: {
-            //       tickangle: -45
-            //     },
-            //     yaxis: {
-            //       zeroline: false,
-            //       gridwidth: 2
-            //     },
-            //     bargap :0.05
-            //   };
-
-            //   // plot chart to 'bar' with data and layout information
-            //   Plotly.newPlot('bar', data, layout);
+};
 
             // Bubble chart
 
