@@ -24,21 +24,33 @@ function getData(newId) {
 
     // read in samples.json
     d3.json("samples.json").then((data) => {
-        console.log(data);
+        // console.log(data);
+
+        // select metadata from json
+        var metadata = data.metadata
+        console.log(metadata);
+
+        // filter metadata by id
+        var demographicId = metadata.filter(a => a.newId === newId)[0];
+        console.log(demographicId);
 
         // filter array by id
         var sampleId = data.samples.filter(a => a.newId === newId)[0];
-        console.log(sampleId);
+        // console.log(sampleId);
 
+        // filter & sort samples values
         var sample_values = sampleId.sample_values.slice(0,10).reverse();
-        console.log(sample_values);
+        // console.log(sample_values);
 
+        // filter & sort otu ids
         var otu_ids = sampleId.otu_ids.slice(0,10).reverse();
-        console.log(otu_ids);
+        // console.log(otu_ids);
 
+        // filter & sort otu labels
         var otu_labels = sampleId.otu_labels.slice(0,10).reverse();
-        console.log(otu_labels);
+        // console.log(otu_labels);
 
+        // add string to otu ids for display in bar chart
         var otu_ids_edited = []
         otu_ids.forEach(function(id){
             otu_ids_edited.push(`OTU ID: ${id}`)
@@ -68,7 +80,6 @@ function getData(newId) {
       Plotly.newPlot('bar', data, layout);
 
     // create trace for Bubble chart
-
     var trace1= {
         x: otu_ids,
         y: sample_values,
@@ -80,15 +91,30 @@ function getData(newId) {
         text: otu_ids
       };
 
+      // write trace to data variable
       var data = [trace1];
 
+      // write layout variable
       var layout = {
         showlegend: false,
         height: 600,
         width: 1200
       };
 
+      // plot chart to 'bubble' with data and layout information
       Plotly.newPlot('bubble', data, layout);
+
+
+    // Display metadata in demographic box
+    // Use D3 to select the metadata
+    var demographicInfo = d3.select("#sample-metadata");
+
+    // Write metadata to table
+    Object.entries(demographicId).forEach((value) => {
+      demographicInfo.append("h5").text(value[0]+ ":" + value[1] + "\n");
+    });
+
+
 
     });
 };
