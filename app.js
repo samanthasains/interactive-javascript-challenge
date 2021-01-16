@@ -2,7 +2,7 @@
 function displayData(newId) {
 
   // read in samples.json
-  d3.json("samples.json").then((data) => {
+  d3.json("data/samples.json").then((data) => {
 
     // filter array by id
     var sampleId = data.samples.filter(s => s.id.toString() === newId)[0];
@@ -54,7 +54,7 @@ function displayData(newId) {
         size: sample_values,
         color: otu_ids
       },
-      text: otu_ids_edited
+      text: otu_labels
     };
 
     // write trace to data variable
@@ -78,7 +78,7 @@ function displayData(newId) {
 function updateDemographic(newId) {
 
   // read the json file to get data
-  d3.json("samples.json").then((data)=> {
+  d3.json("data/samples.json").then((data)=> {
 
   // select metadata from json
   var metadata = data.metadata;
@@ -112,13 +112,14 @@ function init() {
   var dropdownMenu = d3.select("#selDataset");
 
   // read in samples.json
-  d3.json("samples.json").then((data) => {
+  d3.json("data/samples.json").then((data) => {
 
     // Write ids to dropdown
     data.names.forEach(function(name) {
       dropdownMenu.append("option").text(name).property("value");
     });
 
+    // Display initial info
     displayData(data.names[0])
     updateDemographic(data.names[0])
   });
