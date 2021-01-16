@@ -1,4 +1,29 @@
-// Pull data for selected ID
+// This function populates the dropdown with subject ids & populates the initial graphs
+function init() {
+  // Use D3 to select the dropdown menu
+  var dropdownMenu = d3.select("#selDataset");
+
+  // read in samples.json
+  d3.json("data/samples.json").then((data) => {
+
+    // Write ids to dropdown
+    data.names.forEach(function(name) {
+      dropdownMenu.append("option").text(name).property("value");
+    });
+
+    // Display initial info
+    displayData(data.names[0])
+    updateDemographic(data.names[0])
+  });
+}
+
+// Update sample when new id is selected
+function optionChanged(newId) {
+  displayData(newId);
+  updateDemographic(newId);
+}
+
+// Pull data & display bar & bubble graphs for selected ID
 function displayData(newId) {
 
   // read in samples.json
@@ -95,34 +120,8 @@ function updateDemographic(newId) {
   // Write metadata to table
   Object.entries(demographicId).forEach((value) => {
     demographicInfo.append("h5").text(value[0] + ":" + value[1] + "\n");
-    console.log(value[0] + ":" + value[1] + "\n")
   });
   });
 };
-
-// Update sample when new id is selected
-function optionChanged(newId) {
-  displayData(newId);
-  updateDemographic(newId);
-}
-
-// This function is called when a dropdown menu item is selected
-function init() {
-  // Use D3 to select the dropdown menu
-  var dropdownMenu = d3.select("#selDataset");
-
-  // read in samples.json
-  d3.json("data/samples.json").then((data) => {
-
-    // Write ids to dropdown
-    data.names.forEach(function(name) {
-      dropdownMenu.append("option").text(name).property("value");
-    });
-
-    // Display initial info
-    displayData(data.names[0])
-    updateDemographic(data.names[0])
-  });
-}
 
 init();
