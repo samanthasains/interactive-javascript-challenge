@@ -119,7 +119,7 @@ function updateDemographic(newId) {
 
   // Write metadata to table
   Object.entries(demographicId).forEach((value) => {
-    demographicInfo.append("h5").text(value[0] + ":" + value[1] + "\n");
+    demographicInfo.append("h5").text(value[0] + ": " + value[1] + "\n");
   });
   });
 };
